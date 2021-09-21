@@ -14,14 +14,16 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-cmake_minimum_required(VERSION 3.4)
-project (XGL)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+SET(WT_PROJECT_SOURCE
+    src/main.cpp
+    src/XGLApplication.cpp
+)
 
-# Documentation generation
-include(documentation)
+SET(WT_PROJECT_TARGET XGL.wt)
 
-set (WT_CONNECTOR "wthttp" CACHE STRING "Connector used (wthttp or wtfcgi)")
+ADD_EXECUTABLE(${WT_PROJECT_TARGET} ${WT_PROJECT_SOURCE})
+TARGET_INCLUDE_DIRECTORIES(${WT_PROJECT_TARGET} PRIVATE include)
+TARGET_LINK_LIBRARIES(${WT_PROJECT_TARGET} ${WT_CONNECTOR} wt)
 
-add_subdirectory(source)
+INCLUDE_DIRECTORIES(/usr/local/include/Wt)
