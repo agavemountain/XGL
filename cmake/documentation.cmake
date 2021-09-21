@@ -46,7 +46,30 @@ if(BUILD_DOCS)
             COMMENT "Generating documentation with Doxygen"
             VERBATIM )
 	else (DOXYGEN_FOUND)
-		message("Doxygen need to be installed to generate the doxygen documentation")
+        message(WARNING "No Doxygen found. Documentation target not available.")
 	endif (DOXYGEN_FOUND)
+
+    find_package(Sphinx REQUIRED)
+    if(Sphinx_FOUND)
+        set(BINARY_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/_build")
+        
+        # Sphinx cache with pickled ReST documents
+        set(SPHINX_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/_doctrees")
+        
+        # HTML output directory
+        set(SPHINX_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/html")
+        
+        add_custom_target(xgl_docs_html ALL
+            ${SPHINX_EXECUTABLE}
+                -q -b html
+                -c "${CMAKE_CURRENT_SOURCE_DIR}/doc/guide"
+                -d "${SPHINX_CACHE_DIR}"
+                "${CMAKE_CURRENT_SOURCE_DIR}/doc/guide"
+                "${SPHINX_HTML_DIR}"
+            COMMENT "Building HTML documentation with Sphinx")
+
+    else()
+        message(WARNING "No Sphinx found. Documentation target not available.")
+    endif()
 
 endif(BUILD_DOCS)

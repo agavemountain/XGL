@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'XGL User\'s Guide'
-copyright = '2021, Joe Turner'
+copyright = '2021, IO Industrial Holdings, LLC'
 author = 'Joe Turner'
 
 # The short X.Y version
