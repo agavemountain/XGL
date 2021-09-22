@@ -15,13 +15,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 cmake_minimum_required(VERSION 3.4)
-project (XGL)
+project (XGL VERSION "0.0.0")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+# Generate version file based on project version
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/templates/version.h.in 
+    ${CMAKE_CURRENT_SOURCE_DIR}/source/xgllib/include/XGLVersion.h
+    )
 
 # Documentation generation
 include(documentation)
 
 set (WT_CONNECTOR "wthttp" CACHE STRING "Connector used (wthttp or wtfcgi)")
 
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/source/xgllib/include)
 add_subdirectory(source)

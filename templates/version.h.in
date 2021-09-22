@@ -1,5 +1,5 @@
-//! \file XGLApplication.h
-//! \brief Application class
+//! \file XGLVersion.h
+//! \brief XGL version 
 //!
 //! Copyright (C) 2021  IO Industrial Holdings, LLC
 //!
@@ -15,24 +15,13 @@
 //!
 //! You should have received a copy of the GNU General Public License
 //! along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#ifndef _XGL_APPLICATION_H_
-#define _XGL_APPLICATION_H_
-#include <Wt/WApplication.h>
-#include <Wt/Auth/AuthWidget.h>
-#include <Wt/Auth/PasswordService.h>
-#include "Session.h"
+#ifndef _XGL_VERSION_H_
+#define _XGL_VERSION_H_
 
-class XGLApplication : public Wt::WApplication
-{
-public:
-  XGLApplication(const Wt::WEnvironment& env);
-
-  void authEvent();
-
-private:
-  Session session_;
-};
-
-
+#define PROJECT_NAME "@PROJECT_NAME@"
+#define PROJECT_VER  "@PROJECT_VERSION@"
+#define PROJECT_VER_MAJOR "@PROJECT_VERSION_MAJOR@"
+#define PROJECT_VER_MINOR "@PROJECT_VERSION_MINOR@"
+#define PTOJECT_VER_PATCH "@PROJECT_VERSION_PATCH@"
 
 #endif

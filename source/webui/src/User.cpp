@@ -1,5 +1,5 @@
-//! \file XGLApplication.h
-//! \brief Application class
+//! \file User.cpp
+//! \brief User class
 //!
 //! Copyright (C) 2021  IO Industrial Holdings, LLC
 //!
@@ -15,24 +15,9 @@
 //!
 //! You should have received a copy of the GNU General Public License
 //! along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#ifndef _XGL_APPLICATION_H_
-#define _XGL_APPLICATION_H_
-#include <Wt/WApplication.h>
-#include <Wt/Auth/AuthWidget.h>
-#include <Wt/Auth/PasswordService.h>
-#include "Session.h"
+#include "User.h"
 
-class XGLApplication : public Wt::WApplication
-{
-public:
-  XGLApplication(const Wt::WEnvironment& env);
+#include <Wt/Dbo/Impl.h>
+#include <Wt/Auth/Dbo/AuthInfo.h>
 
-  void authEvent();
-
-private:
-  Session session_;
-};
-
-
-
-#endif
+DBO_INSTANTIATE_TEMPLATES(User)

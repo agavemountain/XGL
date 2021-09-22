@@ -14,18 +14,3 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-SET(WT_PROJECT_SOURCE
-    src/main.cpp
-    src/XGLApplication.cpp
-    src/Session.cpp
-    src/User.cpp
-)
-
-SET(WT_PROJECT_TARGET XGL.wt)
-
-ADD_EXECUTABLE(${WT_PROJECT_TARGET} ${WT_PROJECT_SOURCE})
-TARGET_INCLUDE_DIRECTORIES(${WT_PROJECT_TARGET} PRIVATE include)
-TARGET_LINK_LIBRARIES(${WT_PROJECT_TARGET} ${WT_CONNECTOR} wt wtdbo wtdbosqlite3)
-
-INCLUDE_DIRECTORIES(/usr/local/include/Wt)

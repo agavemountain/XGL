@@ -15,26 +15,40 @@
 //!
 //! You should have received a copy of the GNU General Public License
 //! along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#include <Wt/WApplication.h>
+#include <Wt/WBootstrapTheme.h>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WServer.h>
 #include "XGLApplication.h"
+#include "Session.h"
+
+std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env)
+{
+  return std::make_unique<XGLApplication>(env);
+}
 
 int main(int argc, char **argv)
 {
-  /*
-   * Your main method may set up some shared resources, but should then
-   * start the server application (FastCGI or httpd) that starts listening
-   * for requests, and handles all of the application life cycles.
-   *
-   * The last argument to WRun specifies the function that will instantiate
-   * new application objects. That function is executed when a new user surfs
-   * to the Wt application, and after the library has negotiated browser
-   * support. The function should return a newly instantiated application
-   * object.
-   */
-  return Wt::WRun(argc, argv, [](const Wt::WEnvironment &env) {
-    /*
-     * You could read information from the environment to decide whether
-     * the user has permission to start a new application
-     */
-    return std::make_unique<XGLApplication>(env);
-  });
+    try
+    {
+        Wt::WServer server{argc, argv, WTHTTP_CONFIGURATION};
+
+        server.addEntryPoint(Wt::EntryPointType::Application, createApplication);
+
+        Session::configureAuth();
+
+        server.run();
+    }
+    catch (Wt::WServer::Exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    catch (Wt::Dbo::Exception &e)
+    {
+        std::cerr << "Dbo exception: " << e.what() << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << "exception: " << e.what() << std::endl;
+    }
 }

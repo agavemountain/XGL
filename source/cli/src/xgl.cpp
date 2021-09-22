@@ -1,5 +1,5 @@
-//! \file XGLApplication.h
-//! \brief Application class
+//! \file Session.h
+//! \brief Session class
 //!
 //! Copyright (C) 2021  IO Industrial Holdings, LLC
 //!
@@ -15,24 +15,12 @@
 //!
 //! You should have received a copy of the GNU General Public License
 //! along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#ifndef _XGL_APPLICATION_H_
-#define _XGL_APPLICATION_H_
-#include <Wt/WApplication.h>
-#include <Wt/Auth/AuthWidget.h>
-#include <Wt/Auth/PasswordService.h>
-#include "Session.h"
+#include <stdio.h>
+#include "XGLVersion.h"
 
-class XGLApplication : public Wt::WApplication
+int main(int argc, char **argv)
 {
-public:
-  XGLApplication(const Wt::WEnvironment& env);
+    printf("%s %s\n", PROJECT_NAME, PROJECT_VER);
+    return 0;
+}
 
-  void authEvent();
-
-private:
-  Session session_;
-};
-
-
-
-#endif
