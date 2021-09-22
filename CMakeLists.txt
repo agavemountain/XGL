@@ -29,5 +29,7 @@ include(documentation)
 
 set (WT_CONNECTOR "wthttp" CACHE STRING "Connector used (wthttp or wtfcgi)")
 
+enable_testing()
+
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/source/xgllib/include)
 add_subdirectory(source)

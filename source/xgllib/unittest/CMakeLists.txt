@@ -15,11 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-message("BUILDING libxgllib.")
-SET(XGL_LIB_SOURCE
-    src/accounting/payroll/PayPeriods.cpp
-    )
+enable_testing()
 
-ADD_LIBRARY(xgllib ${XGL_LIB_SOURCE})
+set(BINARY ${CMAKE_PROJECT_NAME}_test)
 
-add_subdirectory(unittest)
+file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false *.h *.cpp)
+
+set(SOURCES ${TEST_SOURCES})
+message("Unit tests = ${TEST_SOURCES}")
+add_executable(${BINARY} ${TEST_SOURCES})
+target_link_libraries(${BINARY} PUBLIC gtest pthread)
+
+add_test(${BINARY} ${BINARY})
