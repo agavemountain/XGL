@@ -9,6 +9,4 @@ make
 source/webui/XGL.wt --docroot .. --http-address 0.0.0.0 --http-port 9090
 ```
 
-## Running server
-```
  
