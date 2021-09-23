@@ -15,9 +15,9 @@
 //!
 //! You should have received a copy of the GNU General Public License
 //! along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#include "User.h"
+#include "db/User.h"
 
 #include <Wt/Dbo/Impl.h>
 #include <Wt/Auth/Dbo/AuthInfo.h>
 
-DBO_INSTANTIATE_TEMPLATES(User)
+DBO_INSTANTIATE_TEMPLATES(db::User)

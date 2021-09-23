@@ -1,5 +1,5 @@
-//! \file Session.cpp
-//! \brief Session class
+//! \file DBSession.cpp
+//! \brief DBSession class
 //!
 //! Copyright (C) 2021  IO Industrial Holdings, LLC
 //!
@@ -15,8 +15,6 @@
 //!
 //! You should have received a copy of the GNU General Public License
 //! along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#include "Session.h"
-
 #include "Wt/Auth/AuthService.h"
 #include "Wt/Auth/HashFunction.h"
 #include "Wt/Auth/PasswordService.h"
@@ -28,7 +26,12 @@
 
 #include "Wt/Dbo/backend/Sqlite3.h"
 
+#include "db/DBSession.h"
+
 using namespace Wt;
+
+namespace db
+{
 
 namespace
 {
@@ -39,7 +42,7 @@ namespace
 
 }
 
-void Session::configureAuth()
+void DBSession::configureAuth()
 {
     myAuthService.setAuthTokensEnabled(true, "logincookie");
     myAuthService.setEmailVerificationEnabled(false);
@@ -61,7 +64,7 @@ void Session::configureAuth()
         myOAuthServices[i]->generateRedirectEndpoint();
 }
 
-Session::Session(const std::string &sqliteDb)
+DBSession::DBSession(const std::string &sqliteDb)
 {
     auto connection = std::make_unique<Dbo::backend::Sqlite3>(sqliteDb);
 
@@ -88,12 +91,12 @@ Session::Session(const std::string &sqliteDb)
     users_ = std::make_unique<UserDatabase>(*this);
 }
 
-Auth::AbstractUserDatabase &Session::users()
+Auth::AbstractUserDatabase &DBSession::users()
 {
     return *users_;
 }
 
-dbo::ptr<User> Session::user() const
+dbo::ptr<User> DBSession::user() const
 {
     if (login_.loggedIn())
     {
@@ -104,17 +107,17 @@ dbo::ptr<User> Session::user() const
         return dbo::ptr<User>();
 }
 
-const Auth::AuthService &Session::auth()
+const Auth::AuthService &DBSession::auth()
 {
     return myAuthService;
 }
 
-const Auth::PasswordService &Session::passwordAuth()
+const Auth::PasswordService &DBSession::passwordAuth()
 {
     return myPasswordService;
 }
 
-const std::vector<const Auth::OAuthService *> Session::oAuth()
+const std::vector<const Auth::OAuthService *> DBSession::oAuth()
 {
     std::vector<const Auth::OAuthService *> result;
     for (auto &auth : myOAuthServices)
@@ -123,3 +126,5 @@ const std::vector<const Auth::OAuthService *> Session::oAuth()
     }
     return result;
 }
+
+} // namespace db

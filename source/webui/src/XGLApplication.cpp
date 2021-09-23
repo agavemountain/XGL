@@ -28,7 +28,9 @@
 #include <Wt/WStackedWidget.h>
 #include <Wt/WText.h>
 
-#include "Session.h"
+#include "db/DBSession.h"
+
+using namespace db; 
 
 /*
  * The env argument contains information about the new session, and
@@ -63,10 +65,10 @@ XGLApplication::XGLApplication(const Wt::WEnvironment &env)
     leftMenu_->addItem("Layout", Wt::cpp14::make_unique<Wt::WText>("Layout contents"))
         ->setLink(Wt::WLink(Wt::LinkType::InternalPath, "/layout"));
 
-    std::unique_ptr<Wt::Auth::AuthWidget> authWidget = std::make_unique<Wt::Auth::AuthWidget>(Session::auth(), session_.users(), session_.login());
+    std::unique_ptr<Wt::Auth::AuthWidget> authWidget = std::make_unique<Wt::Auth::AuthWidget>(DBSession::auth(), session_.users(), session_.login());
 
-    authWidget->model()->addPasswordAuth(&Session::passwordAuth());
-    authWidget->model()->addOAuth(Session::oAuth());
+    authWidget->model()->addPasswordAuth(&DBSession::passwordAuth());
+    authWidget->model()->addOAuth(DBSession::oAuth());
     authWidget->setRegistrationEnabled(true);
 
     authWidget->processEnvironment();

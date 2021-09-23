@@ -1,7 +1,7 @@
-//! \file Session.h
-//! \brief Session class
+//! \brief Database session
+//! \file DBSession.h
 //!
-//! Copyright (C) 2021  IO Industrial Holdings, LLC
+//! \copyright Copyright (C) 2021 IO Industrial Holdings, LLC; All Rights Reserved.
 //!
 //! This program is free software: you can redistribute it and/or modify
 //! it under the terms of the GNU General Public License as published by
@@ -15,26 +15,37 @@
 //!
 //! You should have received a copy of the GNU General Public License
 //! along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#ifndef _SESSION_H_
-#define _SESSION_H_
+#ifndef _DBSESSION_H_
+#define _DBSESSION_H_
 #include <Wt/Auth/Login.h>
 #include <Wt/Auth/Dbo/UserDatabase.h>
-
 #include <Wt/Dbo/Session.h>
 #include <Wt/Dbo/ptr.h>
 
-#include "User.h"
+#include "db/User.h"
+
+//! \brief Database namespace
+//!
+//! This namespace contains all of the XGL database sessions, objects, 
+//! object mappings, tables, queries, and assorted minuta.
+namespace db
+{
+
 
 namespace dbo = Wt::Dbo;
 
 using UserDatabase = Wt::Auth::Dbo::UserDatabase<AuthInfo>;
 
-class Session : public dbo::Session
+//! \brief Database Session
+//!
+//! This long-lived object represents the session to the database.
+//! 
+class DBSession : public dbo::Session
 {
 public:
   static void configureAuth();
 
-  Session(const std::string& sqliteDb);
+  DBSession(const std::string& sqliteDb);
 
   dbo::ptr<User> user() const;
 
@@ -49,4 +60,7 @@ private:
   std::unique_ptr<UserDatabase> users_;
   Wt::Auth::Login login_;
 };
+
+} // namespace db
 #endif
+

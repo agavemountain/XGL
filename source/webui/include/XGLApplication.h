@@ -20,7 +20,7 @@
 #include <Wt/WApplication.h>
 #include <Wt/Auth/AuthWidget.h>
 #include <Wt/Auth/PasswordService.h>
-#include "Session.h"
+#include "db/DBSession.h"
 
 class XGLApplication : public Wt::WApplication
 {
@@ -30,7 +30,7 @@ public:
   void authEvent();
 
 private:
-  Session session_;
+  db::DBSession session_;
 };
 
 

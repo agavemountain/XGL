@@ -18,14 +18,12 @@
 SET(WT_PROJECT_SOURCE
     src/main.cpp
     src/XGLApplication.cpp
-    src/Session.cpp
-    src/User.cpp
 )
 
 SET(WT_PROJECT_TARGET XGL.wt)
 
 ADD_EXECUTABLE(${WT_PROJECT_TARGET} ${WT_PROJECT_SOURCE})
 TARGET_INCLUDE_DIRECTORIES(${WT_PROJECT_TARGET} PRIVATE include)
-TARGET_LINK_LIBRARIES(${WT_PROJECT_TARGET} ${WT_CONNECTOR} wt wtdbo wtdbosqlite3)
+TARGET_LINK_LIBRARIES(${WT_PROJECT_TARGET} ${WT_CONNECTOR} wt wtdbo wtdbosqlite3 xgllib)
 
 INCLUDE_DIRECTORIES(/usr/local/include/Wt)

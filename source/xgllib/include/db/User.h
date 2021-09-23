@@ -22,9 +22,14 @@
 
 namespace dbo = Wt::Dbo;
 
+namespace db
+{
+
 class User;
 using AuthInfo = Wt::Auth::Dbo::AuthInfo<User>;
 
+//! \brief User record
+//!
 class User {
 public:
   template<class Action>
@@ -33,6 +38,7 @@ public:
   }
 };
 
-DBO_EXTERN_TEMPLATES(User)
+} // namespace db
 
+DBO_EXTERN_TEMPLATES(db::User)
 #endif

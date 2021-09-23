@@ -18,8 +18,11 @@
 message("BUILDING libxgllib.")
 SET(XGL_LIB_SOURCE
     src/accounting/payroll/PayPeriods.cpp
+    src/db/DBSession.cpp
+    src/db/User.cpp
     )
 
 ADD_LIBRARY(xgllib ${XGL_LIB_SOURCE})
+TARGET_LINK_LIBRARIES(xgllib wt wtdbo wtdbosqlite3)
 
 add_subdirectory(unittest)

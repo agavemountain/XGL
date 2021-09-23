@@ -20,7 +20,9 @@
 #include <Wt/WContainerWidget.h>
 #include <Wt/WServer.h>
 #include "XGLApplication.h"
-#include "Session.h"
+#include "db/DBSession.h"
+
+using namespace db;
 
 std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env)
 {
@@ -35,7 +37,7 @@ int main(int argc, char **argv)
 
         server.addEntryPoint(Wt::EntryPointType::Application, createApplication);
 
-        Session::configureAuth();
+        DBSession::configureAuth();
 
         server.run();
     }
